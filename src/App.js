@@ -37,13 +37,14 @@ class App extends Component {
   handleAddToDo (text){
     this.setState({
       todos: [
-        //show the old array
+        // show the old array
         ...this.state.todos,
-        //new item
+        // then add a new item
         {
           id: uuid(),
           text: text
         }
+        //updates the todos state w/ the whole thing
       ]
     })
   }
