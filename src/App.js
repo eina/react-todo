@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'node-uuid';
 
 // import components
 import ToDoList from './components/ToDoList';
@@ -14,26 +15,37 @@ class App extends Component {
       searchText: '',
       todos: [
         {
-          id: 1,
+          id: uuid(),
           text: 'Walk the dog'
         }, {
-          id: 2,
+          id: uuid(),
           text: 'Clean the yard'
         }, {
-          id: 3,
+          id: uuid(),
           text: 'Finish this video'
         }, {
-          id: 4,
+          id: uuid(),
           text: 'Shower and pluck eyebrows'
         }
       ],
     };
 
+    this.handleAddToDo = this.handleAddToDo.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
   }
 
   handleAddToDo (text){
-    alert('new todo: ' + text)
+    this.setState({
+      todos: [
+        //show the old array
+        ...this.state.todos,
+        //new item
+        {
+          id: uuid(),
+          text: text
+        }
+      ]
+    })
   }
 
   handleSearch(showCompleted, searchText){
