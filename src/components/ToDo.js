@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 
 export default class ToDoList extends Component {
   render(){
-    let {text, id} = this.props;
+    let {text, id, completed} = this.props;
+
     return (
-      <div>
-        {id}. {text}
+      <div onClick={() => this.props.onToggle(id)}>
+        <input type="checkbox" checked={completed} />
+        {text}
       </div>
     )
   }

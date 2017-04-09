@@ -10,7 +10,7 @@ export default class ToDoList extends Component {
         return (
           // every attribute of todo will get passed 
           //to ToDo as its own prop
-          <ToDo key={todo.id} {...todo}/>
+          <ToDo key={todo.id} {...todo} onToggle={this.props.onToggle}/>
         )
       })
     }

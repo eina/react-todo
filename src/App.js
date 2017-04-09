@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import uuid from 'node-uuid';
 
+//data
+import ToDoAPI from './api/ToDoAPI';
+
 // import components
 import ToDoList from './components/ToDoList';
 import AddToDo from './components/AddToDo';
@@ -13,25 +16,28 @@ class App extends Component {
     this.state = {
       showCompleted: false,
       searchText: '',
-      todos: [
-        {
-          id: uuid(),
-          text: 'Walk the dog'
-        }, {
-          id: uuid(),
-          text: 'Clean the yard'
-        }, {
-          id: uuid(),
-          text: 'Finish this video'
-        }, {
-          id: uuid(),
-          text: 'Shower and pluck eyebrows'
-        }
-      ],
+      todos: ToDoAPI.getToDos() //should return an arrray
     };
 
     this.handleAddToDo = this.handleAddToDo.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.handleToggle = this.handleToggle.bind(this)
+  }
+
+  componentDidUpdate(){
+    // console.log(ToDoAPI);
+    ToDoAPI.setToDos(this.state.todos);
+  }
+
+  handleToggle(id){
+    let updatedTodos = this.state.todos.map((todo) => {
+      if(todo.id === id){
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    })
+
+    this.setState({todos: updatedTodos});
   }
 
   handleAddToDo (text){
@@ -42,7 +48,8 @@ class App extends Component {
         // then add a new item
         {
           id: uuid(),
-          text: text
+          text: text,
+          completed: false
         }
         //updates the todos state w/ the whole thing
       ]
@@ -57,12 +64,13 @@ class App extends Component {
   }
 
   render() {
-    let {todos} = this.state;
+    let {todos, showCompleted, searchText} = this.state;
+    let filteredTodos = ToDoAPI.filterToDos(todos, showCompleted, searchText);
 
     return (
       <div className="App">
         <ToDoSearch onSearch={this.handleSearch}/>
-        <ToDoList todos={todos} />
+        <ToDoList todos={filteredTodos} onToggle={this.handleToggle} />
         <AddToDo onAddTodo={this.handleAddToDo} />
       </div>
     );
