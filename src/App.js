@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'node-uuid';
+import moment from 'moment';
 
 //data
 import ToDoAPI from './api/ToDoAPI';
@@ -29,17 +30,6 @@ class App extends Component {
     ToDoAPI.setToDos(this.state.todos);
   }
 
-  handleToggle(id){
-    let updatedTodos = this.state.todos.map((todo) => {
-      if(todo.id === id){
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    })
-
-    this.setState({todos: updatedTodos});
-  }
-
   handleAddToDo (text){
     this.setState({
       todos: [
@@ -49,11 +39,25 @@ class App extends Component {
         {
           id: uuid(),
           text: text,
-          completed: false
+          completed: false,
+          createdAt: moment().unix(),
+          completedAt: undefined
         }
         //updates the todos state w/ the whole thing
       ]
     })
+  }
+
+  handleToggle(id){
+    let updatedTodos = this.state.todos.map((todo) => {
+      if(todo.id === id){
+        todo.completed = !todo.completed;
+        todo.completedAt = todo.completed ? moment().unix() : undefined
+      }
+      return todo;
+    })
+
+    this.setState({todos: updatedTodos});
   }
 
   handleSearch(showCompleted, searchText){
