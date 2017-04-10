@@ -10,6 +10,7 @@
     "deep-freeze-strict": "^1.1.1",
     "moment": "^2.18.1",
     "node-uuid": "^1.4.8",
+    "react-redux": "^5.0.4",
     "react-scripts": "0.9.5",
     "redux": "^3.6.0"
   },

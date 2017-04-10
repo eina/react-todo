@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import * as action from './actions/actions.js';
 import App from './App';
-import './index.css';
 
 // redux
-import { setSearchText,addTodo,toggleShowCompleted,toggleTodo } from './actions/actions.js';
 import store from './store/configureStore';
 
 store.subscribe(() => {
   console.log('New state', store.getState());
 })
 
-store.dispatch(addTodo('Clean the yard'));
-store.dispatch(setSearchText('yard'));
-store.dispatch(toggleShowCompleted());
+store.dispatch(action.addTodo('Clean the yard.'))
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider> ,
   document.getElementById('root')
 );
