@@ -11,8 +11,6 @@ store.subscribe(() => {
   console.log('New state', store.getState());
 })
 
-store.dispatch(action.addTodo('Clean the yard.'))
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

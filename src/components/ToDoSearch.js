@@ -1,31 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../actions/actions.js'
 
-export default class ToDoSearch extends Component {
-  constructor(props){
-    super(props)
-    this.handleSearch = this.handleSearch.bind(this);
-  }
-  handleSearch(){
-    let showCompleted = this.refs.showCompleted.checked;
-    let searchText = this.refs.searchText.value;
-
-    //props that's going to be passed down from App.js
-    this.props.onSearch(showCompleted, searchText);
-  }
+class ToDoSearch extends Component {
   render(){
+    const { dispatch, showCompleted, searchText } = this.props;
     return(
       <div>
         <div>
           <input type="search" 
               ref="searchText" 
-              onChange={this.handleSearch}
+              onChange={()=> { 
+                var searchText = this.refs.searchText.value;
+                dispatch(actions.setSearchText(searchText))
+              }}
+              value={searchText}
               placeholder="Searh To Dos"/>
         </div>
         <div>
           <label htmlFor="checkbox">            
             <input type="checkbox" name="checkbox"
                 ref="showCompleted"
-                onChange={this.handleSearch}/>
+                checked={showCompleted}
+                onChange={() => {
+                  dispatch(actions.toggleShowCompleted())
+                }}/>
             Show completed tasks
           </label>
         </div>
@@ -33,3 +32,12 @@ export default class ToDoSearch extends Component {
     );
   }
 }
+
+export default connect(
+  (state) => {
+    return {
+      showCompleted: state.showCompleted,
+      searchText: state.searchText
+    }
+  }
+)(ToDoSearch);
