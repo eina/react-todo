@@ -25,10 +25,17 @@ let toggleTodo = (id) => {
   }
 }
 
+let addToDos = (todos) => {
+  return {
+    type: 'ADD_TODOS',
+    todos
+  }
+}
 
 export {
   setSearchText,
   addTodo,
   toggleShowCompleted,
-  toggleTodo
+  toggleTodo,
+  addToDos
 }
