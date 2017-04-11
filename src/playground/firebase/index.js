@@ -26,6 +26,41 @@ firebaseRef.set({
   }
 })
 
+var notesRef = firebaseRef.child('notes');
+
+notesRef.on('child_added', (snapshot) => {
+  console.log('child_added', snapshot.key, snapshot.val())
+})
+
+notesRef.on('child_changed', (snapshot) => {
+  console.log('child_changed', snapshot.key, snapshot.val())
+})
+
+notesRef.on('child_removed', (snapshot) => {
+  console.log('child_removed', snapshot.key, snapshot.val())
+})
+
+var newNoteRef = notesRef.push({
+  text: 'Walk the dog!'
+})
+
+//challenge
+var todoRef = firebaseRef.child('todo');
+
+//listener on
+todoRef.on('child_added', (snapshot) => {
+  console.log('child_added', snapshot.key, snapshot.val())
+})
+
+//add two todos to the array using push
+var newTodo = todoRef.push({
+  text: 'Shower tonight'
+})
+
+var newTodo = todoRef.push({
+  text: 'Brush teeth'
+})
+
 //specify which .child() you want to change so the whole thing doesn't get wiped, it'll still wipe the object it's contained in if applicable
 // firebaseRef.child('user').set({
 //   name: 'Mike'
@@ -75,14 +110,14 @@ firebaseRef.set({
 // 2. update data in user, change name
 // 3. update the app's name
 
-firebaseRef.child('user').on('value', (snapshot)=> {
-    console.log('Got value', snapshot.val());
-})
+// firebaseRef.child('user').on('value', (snapshot)=> {
+//     console.log('Got value', snapshot.val());
+// })
 
-firebaseRef.child('user').update({
-  name: 'Fabrienne'
-})
+// firebaseRef.child('user').update({
+//   name: 'Fabrienne'
+// })
 
-firebaseRef.child('app').update({
-  name: 'To Do App'
-})
+// firebaseRef.child('app').update({
+//   name: 'To Do App'
+// })

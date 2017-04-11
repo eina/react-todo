@@ -10,9 +10,6 @@ import App from './App';
 // redux
 import store from './store/configureStore';
 
-//firebase
-import './playground/firebase/index';
-
 store.subscribe(() => {
   let state = store.getState();
   console.log('New state', state);

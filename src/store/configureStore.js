@@ -1,4 +1,5 @@
-import { combineReducers, createStore, compose } from 'redux';
+import { combineReducers, createStore, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import {  searchTextReducer,showCompletedReducer, todosReducer} from '../reducers/reducers.js';
 
 
@@ -9,6 +10,7 @@ let reducer = combineReducers({
 })
 
 const store = createStore(reducer, compose(
+  applyMiddleware(thunk),
   window.devToolsExtension ? window.devToolsExtension() : f => f
 ))
 

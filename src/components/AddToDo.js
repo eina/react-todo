@@ -18,7 +18,7 @@ class AddToDo extends Component {
       //onAddTodo is a prop of this component 
       //that runs the function (in App.js): handleAddToDo
       // this.props.onAddTodo(todoText);
-      dispatch(actions.addTodo(todoText))
+      dispatch(actions.startAddTodo(todoText))
     } else {
       //focus on the field so they can put data since it's empty
       this.refs.todoText.focus();
