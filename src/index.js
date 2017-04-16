@@ -12,6 +12,7 @@ import router from './router';
 firebase.auth().onAuthStateChanged((user)=> {
   if(user) {
     store.dispatch(actions.logIn(user.uid))
+    store.dispatch(actions.startAddToDos());
     hashHistory.push('/todos')
   }else {
     store.dispatch(actions.logOut())
@@ -30,8 +31,6 @@ firebase.auth().onAuthStateChanged((user)=> {
 //for anything that might be in localstorage already
 // let initialTodos = ToDoAPI.getToDos();
 // store.dispatch(actions.addToDos(initialTodos))
-
-store.dispatch(actions.startAddToDos());
 
 ReactDOM.render(
   <Provider store={store}>
