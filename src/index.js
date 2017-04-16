@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Router, IndexRoute, hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
+
 //components
 import * as actions from './actions/actions'
-import App from './App';
-import LogIn from './components/LogIn'
-
-// redux
 import store from './store/configureStore';
+import firebase from './firebase/index';
+import router from './router';
+
+firebase.auth().onAuthStateChanged((user)=> {
+  if(user) {
+    store.dispatch(actions.logIn(user.uid))
+    hashHistory.push('/todos')
+  }else {
+    store.dispatch(actions.logOut())
+    hashHistory.push('/')
+  }
+})
 
 // store.subscribe(() => {
 //   let state = store.getState();
@@ -26,12 +35,7 @@ store.dispatch(actions.startAddToDos());
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/">
-        <Route path="todos" component={App}/>
-        <IndexRoute component={LogIn}/>
-      </Route>
-    </Router>
+    {router}
   </Provider> ,
   document.getElementById('root')
 );

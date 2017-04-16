@@ -89,6 +89,13 @@ export let startToggleToDo = (id, completed) => {
   }
 }
 
+export const logIn = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid
+  }
+}
+
 export const startLogIn = () => {
   //async returns function ->
   return (dispatch, getState) => {
@@ -98,6 +105,12 @@ export const startLogIn = () => {
       }, (error) => {
         console.log('Unable to auth', error)
       })
+  }
+}
+
+export const logOut = () => {
+  return {
+    type: 'LOGOUT'
   }
 }
 
