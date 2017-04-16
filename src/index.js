@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
+import { Route, Router, IndexRoute, hashHistory } from 'react-router';
 //components
 import * as actions from './actions/actions'
-import ToDoAPI from './api/ToDoAPI';
 import App from './App';
+import LogIn from './components/LogIn'
 
 // redux
 import store from './store/configureStore';
@@ -26,7 +26,12 @@ store.dispatch(actions.startAddToDos());
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router history={hashHistory}>
+      <Route path="/">
+        <Route path="todos" component={App}/>
+        <IndexRoute component={LogIn}/>
+      </Route>
+    </Router>
   </Provider> ,
   document.getElementById('root')
 );
