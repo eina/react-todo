@@ -1,24 +1,7 @@
 //knows how to set and fetch items from the localstorage
 
 const API = {
-  setToDos: function(todos){
-    if(Array.isArray(todos)){
-      localStorage.setItem('todos', JSON.stringify(todos));
-      return todos;
-    }
-  },
-  getToDos: function(){
-    //fetch items from localstorage
-    let stringTodos = localStorage.getItem('todos');
-    let todos = [];
 
-    try {
-      todos = JSON.parse(stringTodos);
-    } catch (e) {}
-
-    return Array.isArray(todos) ? todos : [];
-
-  },
   filterToDos: function(todos, showCompleted, searchText){
     let filteredTodos = todos;
 
